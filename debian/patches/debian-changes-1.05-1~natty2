@@ -1,0 +1,81 @@
+Description: Upstream changes introduced in version 1.05-1~natty2
+ This patch has been created by dpkg-source during the package build.
+ Here's the last changelog entry, hopefully it gives details on why
+ those changes were made:
+ .
+ pgrouting (1.05-1~natty2) natty; urgency=low
+ .
+   * Increased package version by 1
+ .
+ The person named in the Author field signed this changelog entry.
+Author: Daniel Kastl <daniel@georepublic.de>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- pgrouting-1.05.orig/CMakeLists.txt
++++ pgrouting-1.05/CMakeLists.txt
+@@ -85,8 +85,8 @@ IF(WIN32)
+   LINK_LIBRARIES(postgres)
+ ENDIF(WIN32)
+ 
+-SET(CMAKE_C_FLAGS "-O2 -g -frounding-math")
+-SET(CMAKE_CXX_FLAGS "-O2 -g -frounding-math")
++SET(CMAKE_C_FLAGS   "-O2 -g -lgmp -frounding-math")
++SET(CMAKE_CXX_FLAGS "-O2 -g -lgmp -frounding-math")
+ 
+ # Recurse into the subdirectories.  This does not actually
+ # cause another cmake executable to run.  The same process will walk through
+--- pgrouting-1.05.orig/core/src/shooting_star_relax.hpp
++++ pgrouting-1.05/core/src/shooting_star_relax.hpp
+@@ -15,7 +15,7 @@
+ #include <functional>
+ #include <boost/limits.hpp> // for numeric limits
+ #include <boost/graph/graph_traits.hpp>
+-#include <boost/property_map.hpp>
++#include <boost/property_map/property_map.hpp>
+ 
+ #include <postgres.h>
+ 
+--- pgrouting-1.05.orig/core/src/shooting_star_boost_wrapper.cpp
++++ pgrouting-1.05/core/src/shooting_star_boost_wrapper.cpp
+@@ -23,7 +23,7 @@
+ 
+ #include <boost/graph/graph_traits.hpp>
+ #include <boost/graph/adjacency_list.hpp>
+-#include <boost/vector_property_map.hpp>
++#include <boost/property_map/vector_property_map.hpp>
+ #include <shooting_star_search.hpp>
+ 
+ #include "shooting_star.h"
+--- pgrouting-1.05.orig/core/src/edge_visitors.hpp
++++ pgrouting-1.05/core/src/edge_visitors.hpp
+@@ -3,7 +3,7 @@
+ 
+ #include <iosfwd>
+ #include <boost/config.hpp>
+-#include <boost/property_map.hpp>
++#include <boost/property_map/property_map.hpp>
+ #include <boost/graph/graph_traits.hpp>
+ #include <boost/limits.hpp>
+ #include <boost/graph/detail/is_same.hpp>
+--- pgrouting-1.05.orig/extra/driving_distance/src/alpha_drivedist.cpp
++++ pgrouting-1.05/extra/driving_distance/src/alpha_drivedist.cpp
+@@ -48,7 +48,6 @@ corresponding to the Alpha shape.
+ #include <CGAL/Triangulation_euclidean_traits_2.h>
+ #include <CGAL/Alpha_shape_2.h>
+ #include <CGAL/Alpha_shape_face_base_2.h>
+-#include <CGAL/Alpha_shape_2.h>
+ #include <CGAL/Alpha_shape_vertex_base_2.h>
+ 
+ typedef double coord_type;
