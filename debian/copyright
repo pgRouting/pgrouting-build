@@ -1,38 +1,42 @@
-This package was debianized by Akio Takubo <takubo@saruga-tondara.net> on
-Sun, 13 Jan 2008 18:14:48 +0900.
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: pgRouting
+Upstream-Contact: Daniel Kastl <daniel@georepublic.de>
+Source: https://github.com/pgrouting/pgrouting
+Comment: pgRouting Contributors are listed on 
+ http://pgrouting.org/documentation.html#list-of-contributors
 
-It was checked out from http://pgrouting.postlbs.org/svn/pgrouting/trunk.
+Files: *
+Copyright: Copyright 2013 pgRouting Contributors <pgrouting@pgrouting.org>
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
 
-Upstream Author(s): 
-    It described at authors.txt file.
+Files: doc/*
+Copyright: Copyright 2013 pgRouting Contributors <pgrouting@pgrouting.org>
+License: CC-BY-SA
 
-Copyright: 
+Files: tools/*
+Copyright: Copyright 2013 pgRouting Contributors <pgrouting@pgrouting.org>
+License: Expat (MIT X)
 
-    Copyright (c) 2005 Sylvain Pasche,
-                  2006-2007 Anton A. Patrushev, Orkney, Inc.
-                  2006 Mario H. Basa, Orkney, Inc.
-
-License:
-
-    This package is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
- 
-    This package is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
- 
-    You should have received a copy of the GNU General Public License
-    along with this package; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
-
-The Debian packaging is (C) 2008, Akio Takubo <takubo@saruga-tondara.net> and
-is licensed under the GPL, see above.
-
-
-
+Files: debian/*
+Copyright: Copyright 2013 pgRouting Contributors <pgrouting@pgrouting.org>
+License: Expat (MIT X)

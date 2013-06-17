@@ -1,3 +1,11 @@
+pgrouting (2.0.0-alpha-ppa1) unstable; urgency=low
+
+  [ Daniel Kastl (Georepublic) ]
+  * Imported Upstream version 2.0.0-alpha
+  * Updated debian directory
+
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Mon, 17 Jun 2013 04:02:31 +0900
+
 pgrouting (1.05-1~precise2) precise; urgency=low
 
   * Fixed CGAL dependency (new version)
