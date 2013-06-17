@@ -1,0 +1,13 @@
+#!/bin/sh
+# ------------------------------------------------------------------------------
+# Build script
+# Copyright(c) pgRouting Contributors
+#
+# This script builds and install pgRouting
+# ------------------------------------------------------------------------------
+rm -rf build
+mkdir build
+cd build
+cmake -DWITH_DOC=ON -DWITH_DD=ON ..
+make && sudo make install && (cd ..; tools/test-runner.pl)
+rsync -a html/* /u/www/html/pgr2-doc/.
