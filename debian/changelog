@@ -1,10 +1,11 @@
-pgrouting (2.0.0-alpha-ppa1) unstable; urgency=low
+pgrouting (2.0.0-alpha-ppa8) raring; urgency=normal
 
   [ Daniel Kastl (Georepublic) ]
+  * changed build directory
   * Imported Upstream version 2.0.0-alpha
   * Updated debian directory
 
- -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Mon, 17 Jun 2013 04:02:31 +0900
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Tue, 18 Jun 2013 03:46:49 +0900
 
 pgrouting (1.05-1~precise2) precise; urgency=low
 
