@@ -10,7 +10,7 @@ Homepage: http://www.pgrouting.org
 Package: postgresql-9.1-pgrouting
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, postgresql-9.1-postgis
-Suggests: postgresql-9.1-pgrouting-doc
+Suggests: osm2pgrouting, pgrouting-workshop 
 Description: Routing functionality support for PostgreSQL/PostGIS
  pgRouting extends the PostGIS/PostgreSQL geospatial database to provide 
  geospatial routing and other network analysis functionality.
