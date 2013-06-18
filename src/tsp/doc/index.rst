@@ -74,6 +74,9 @@ For users, that do not want to use Euclidean distances, we also provode the abil
 
 :matrix: ``float[][]`` distance matrix of points
 :start: ``int4`` index of the start point
+:end: ``int4`` (optional) index of the end node
+
+The ``end`` node is an optional parameter, you can just leave it out if you want a loop where the ``start`` is the depot and the route returns back to the depot. If you include the ``end`` parameter, we optimize the path from ``start`` to ``end`` and minimize the distance of the route while include the remaining points.
 
 The distance matrix is a multidimensional `PostgreSQL array type <http://www.postgresql.org/docs/9.1/static/arrays.html>`_ that must be ``N x N`` in size. 
 
@@ -86,7 +89,7 @@ The result will be N records of ``[ seq, id ]``:
 .. rubric:: Footnotes
 
 .. [#f0] ``edge_id`` and ``cost`` attribute of the result set are not used and always contain ``0``.
-.. [#f1] There was some thought given to pre-calculating the driving distances between the nodes using Dijkstra, but then I read a paper (unfortunately I don't remember who wrote it), where it was proved that the quality of TSP with euclidean distance is only slightly worse that one with real distance in case of normal city layout. In case of very sparse network or rivers and bridges it becomes more inaccurate, but still wholly satisfactory. Of course it is nice to have exact solution, but this is a compromise between quality and speed (and development time also).
+.. [#f1] There was some thought given to pre-calculating the driving distances between the nodes using Dijkstra, but then I read a paper (unfortunately I don't remember who wrote it), where it was proved that the quality of TSP with euclidean distance is only slightly worse than one with real distance in case of normal city layout. In case of very sparse network or rivers and bridges it becomes more inaccurate, but still wholly satisfactory. Of course it is nice to have exact solution, but this is a compromise between quality and speed (and development time also). If you need a more accurate solution, you can generate a distance matrix and use that form of the function to get your results.
 
 
 .. rubric:: History
@@ -102,21 +105,35 @@ Examples
 
 .. code-block:: sql
 
-	SELECT * FROM pgr_tsp('SELECT id AS source_id, x, y FROM vertex_table','2,7,11',7);
+	SELECT * FROM pgr_tsp('SELECT id AS source_id, x, y FROM vertex_table','2,7,11,9',7);
 
 
-* Using distance matrix
+* Using distance matrix (Points 2,7,11 and 9, starting from 7)
 
 .. code-block:: sql
 
-	SELECT seq, id FROM pgr_tsp('{{0,1,2,3},{1,0,3,2},{2,3,0,4},{3,2,4,0}}',2);
+	SELECT seq, id FROM pgr_tsp('{{0,1,3,3},{1,0,2,2},{3,2,0,2},{3,2,2,0}}',1);
 
 	 seq | id 
 	-----+----
-	   0 |  2
+	   0 |  1
+	   1 |  3
+	   2 |  2
+	   3 |  0
+	(4 rows)
+
+* Using distance matrix (Points 2,7,11 and 9, starting from 7, returning to 11)
+
+.. code-block:: sql
+
+	SELECT seq, id FROM pgr_tsp('{{0,1,3,3},{1,0,2,2},{3,2,0,2},{3,2,2,0}}',1,2);
+
+	 seq | id 
+	-----+----
+	   0 |  3
 	   1 |  0
 	   2 |  1
-	   3 |  3
+	   3 |  2
 	(4 rows)
 
 The queries use the :ref:`sampledata` network.
