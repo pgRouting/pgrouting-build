@@ -1,3 +1,11 @@
+pgrouting (2.0.0-beta-ppa10) quantal; urgency=medium
+
+  [ Daniel Kastl (Georepublic) ]
+  * Imported Upstream version 2.0.0-beta
+  * Modified debian build configuration
+
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Wed, 19 Jun 2013 01:56:57 +0900
+
 pgrouting (2.0.0-alpha-ppa8) raring; urgency=normal
 
   [ Daniel Kastl (Georepublic) ]

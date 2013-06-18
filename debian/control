@@ -3,14 +3,14 @@ Section: misc
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Daniel Kastl <daniel@georepublic.de>
-Build-Depends: debhelper (>= 7), cdbs, cmake (>= 2.8.8), postgresql-server-dev-9.1, libboost-graph-dev, libcgal-dev, python-sphinx 
+Build-Depends: debhelper (>= 7), cdbs, cmake (>= 2.8.8), postgresql-server-dev-9.1, libboost-graph-dev, libcgal-dev, python-sphinx, texlive, texlive-latex-extra 
 Standards-Version: 3.9.3
 Homepage: http://www.pgrouting.org
 
 Package: postgresql-9.1-pgrouting
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, postgresql-9.1-postgis
-Suggests: postgresql-9.1-pgrouting-doc
+Suggests: osm2pgrouting, pgrouting-workshop 
 Description: Routing functionality support for PostgreSQL/PostGIS
  pgRouting extends the PostGIS/PostgreSQL geospatial database to provide 
  geospatial routing and other network analysis functionality.
