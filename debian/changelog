@@ -1,10 +1,10 @@
-pgrouting (2.0.0-beta-ppa11) quantal; urgency=medium
+pgrouting (2.0.0-beta-ppa12) precise; urgency=medium
 
   [ Daniel Kastl (Georepublic) ]
   * Modified debian build configuration
   * Fixed lbcgal dependency for precise
 
- -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Thu, 20 Jun 2013 13:57:31 +0900
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Thu, 20 Jun 2013 15:09:04 +0900
 
 pgrouting (2.0.0-beta-ppa10) quantal; urgency=medium
 
