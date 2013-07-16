@@ -1,3 +1,13 @@
+pgrouting (2.0.0-rc1-ppa20~raring1) raring; urgency=medium
+
+  [ Daniel Kastl (Georepublic) ]
+  * Modified debian build configuration
+  * Imported Upstream version 2.0.0-rc1
+
+  [ Daniel Kastl ]
+
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Wed, 30 Jul 2013 03:42:17 +0900
+
 pgrouting (2.0.0-beta-ppa12) precise; urgency=medium
 
   [ Daniel Kastl (Georepublic) ]
