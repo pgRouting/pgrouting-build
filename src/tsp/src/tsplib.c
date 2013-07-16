@@ -82,58 +82,62 @@
 #define IMPROVED_PATH_PER_T           60*n   
 
 /*
- * Portable Uniform Integer Random Number in [0-2^31] range
- * Performs better than ansi-C rand() 
- * D.E Knuth, 1994 - The Stanford GraphBase
- */
-#define RANDOM()        (*rand_fptr >= 0 ? *rand_fptr-- : flipCycle ()) 
-#define two_to_the_31   ((unsigned long)0x80000000) 
-#define RREAL           ((double)RANDOM()/(double)two_to_the_31)
+ *   MACHINE INDEPENDENT RANDOM NUMBER GENERATOR
+ *   Written by:  DIMACS  (modified for TSP)
+*/
 
-static long A[56]= {-1};
-long *rand_fptr = A;
+#define PRANDMAX 1000000000
+static int a;
+static int b;
+static int arr[55];
 
-#define mod_diff(x,y)   (((x)-(y))&0x7fffffff) 
-long flipCycle()
+void initRand (int seed)
 {
-    register long *ii,*jj;
-    for (ii = &A[1], jj = &A[32]; jj <= &A[55]; ii++, jj++)
-    *ii= mod_diff (*ii, *jj);
+    int i, ii;
+    int last, next;
 
-    for (jj = &A[1]; ii <= &A[55]; ii++, jj++)
-    *ii= mod_diff (*ii, *jj);
-    rand_fptr = &A[54];
-    return A[55];
-}
+    seed %= PRANDMAX;
+    if (seed < 0) seed += PRANDMAX;
 
-void initRand (long seed)
-{
-    register long i;
-    register long prev = seed, next = 1;
-    seed = prev = mod_diff (prev,0);
-    A[55] = prev;
-    for (i = 21; i; i = (i+21)%55)
-    {
-        A[i] = next;
-        next = mod_diff (prev, next);
-        if (seed&1) seed = 0x40000000 + (seed >> 1);
-        else seed >>= 1;
-        next = mod_diff (next,seed);
-        prev = A[i];
+    arr[0] = last = seed;
+    next = 1;
+    for (i = 1; i < 55; i++) {
+        ii = (21 * i) % 55;
+        arr[ii] = next;
+        next = last - next;
+        if (next < 0)
+            next += PRANDMAX;
+        last = arr[ii];
     }
-    
-    for (i = 0; i < 7; i++) flipCycle(); 
+    a = 0;
+    b = 24;
+    for (i = 0; i < 165; i++)
+        last = Rand ();
 }
 
-long unifRand (long m)
+int Rand (void)
 {
-    register unsigned long t = two_to_the_31 - (two_to_the_31%m);
-    register long r;
-    do {
-        r = RANDOM();
-    } while (t <= (unsigned long)r);
-    return r%m;
+    int t;
+
+    if (a-- == 0)
+        a = 54;
+    if (b-- == 0)
+        b = 54;
+
+    t = arr[a] - arr[b];
+
+    if (t < 0)
+        t += PRANDMAX;
+
+    arr[a] = t;
+
+    return t;
 }
+
+#define RREAL ((double)Rand()/PRANDMAX)
+#define RANDOM Rand
+#define unifRand(n) (Rand()%n)
+
 
 /*
  * Defs
@@ -183,7 +187,7 @@ int findEulerianPath(TSP *tsp)
         elog(ERROR, "Failed to allocate memory!");
         return -1;
     }
-    DBG("findEulerianPath: 1");
+    //DBG("findEulerianPath: 1");
 
     j = -1;
     d = maxd;
@@ -198,7 +202,7 @@ int findEulerianPath(TSP *tsp)
             j = i;
         }
     }
-    DBG("findEulerianPath: j=%d", j);
+    //DBG("findEulerianPath: j=%d", j);
 
     if (j == -1)
         elog(ERROR, "Error TSP fail to findEulerianPath, check your distance matrix is valid.");
@@ -230,7 +234,7 @@ int findEulerianPath(TSP *tsp)
         }
         j = k;
     }
-    DBG("findEulerianPath: 3");
+    //DBG("findEulerianPath: 3");
 
     /*
      * Preorder Tour of MST
@@ -255,7 +259,7 @@ int findEulerianPath(TSP *tsp)
             }    
         }
     }
-    DBG("findEulerianPath: 4");
+    //DBG("findEulerianPath: 4");
 
     return 0;
 }
@@ -429,7 +433,7 @@ void annealing(TSP *tsp)
             if (pathlen < bestlen) bestlen = pathlen;
             if (pathchg > IMPROVED_PATH_PER_T) break; /* finish early */
         }   
-        DBG("T:%f L:%d B:%d C:%d", T, pathlen, bestlen, pathchg);
+        DBG("T:%f L:%f B:%f C:%d", T, pathlen, bestlen, pathchg);
         if (pathchg == 0) break;   /* if no change then quit */
     }
 }
@@ -450,10 +454,14 @@ int find_tsp_solution(int num, DTYPE *cost, int *ids, int start, int end, DTYPE 
 {
     int   i, j;
     int   istart = 0;
+    int   jstart = 0;
     int   iend = -1;
+    int   jend = -1;
     int   rev = 0;
     TSP   tsp;
     long  seed = -314159L;
+
+    DBG("sizeof(long)=%d", (int)sizeof(long));
 
     initRand (seed);
 
@@ -478,7 +486,7 @@ int find_tsp_solution(int num, DTYPE *cost, int *ids, int start, int end, DTYPE 
     /* identity permutation */
     for (i = 0; i < tsp.n; i++) tsp.iorder[i] = i;
 
-    DBG("Initial Path Length: %d", pathLength(&tsp));
+    DBG("Initial Path Length: %.2f", pathLength(&tsp));
 
     /*
      * Set up first eulerian path iorder to be improved by
@@ -487,7 +495,7 @@ int find_tsp_solution(int num, DTYPE *cost, int *ids, int start, int end, DTYPE 
     if(findEulerianPath(&tsp))
         return -1;
 
-    DBG("Approximated Path Length: %d", pathLength(&tsp));
+    DBG("Approximated Path Length: %.2f", pathLength(&tsp));
 
     annealing(&tsp);
 
@@ -499,8 +507,8 @@ int find_tsp_solution(int num, DTYPE *cost, int *ids, int start, int end, DTYPE 
 
 #ifdef DEBUG
     for (i=0; i<tsp.n; i++) {
-        DBG("i: %d, ids[i]: %d, io[i]: %d, jo[i]: %d",
-            i, ids[i], tsp.iorder[i], tsp.jorder[i]);
+        DBG("i: %d, ids[i]: %d, io[i]: %d, jo[i]: %d, jo[io[i]]: %d",
+            i, ids[i], tsp.iorder[i], tsp.jorder[i], tsp.jorder[tsp.iorder[i]]);
     }
 #endif
 
@@ -513,46 +521,42 @@ int find_tsp_solution(int num, DTYPE *cost, int *ids, int start, int end, DTYPE 
 
     // get the idex of start in iorder
     for (i=0; i < tsp.n; i++) {
-        if (tsp.iorder[i] == istart) istart = i;
-        if (tsp.iorder[i] == iend)   iend = i;
+        if (tsp.iorder[i] == istart) jstart = i;
+        if (tsp.iorder[i] == iend)   jend = i;
     }
-    DBG("istart: %d, iend: %d", istart, iend);
+    DBG("jstart: %d, jend: %d", jstart, jend);
 
     /*
-     * If the end is specified and the end point is the first in the list
-     * or if it is after start node then we need to reverse everything
-     * to extract the nodes in the reverse order
-     * and later we will reverse them again so they are correct
+     * If the end is specified and the end point and it follow start
+     * then we swap start and end and extract the list backwards
+     * and later we reverse the list for the desired order.
     */
-    if (iend > 0 && iend == istart+1 || iend == 0) {
-        reverse(tsp.n, ids);
-        reverse(tsp.n, tsp.iorder);
-        reverse(tsp.n, tsp.jorder);
-        istart = tsp.n - istart - 1;
-        iend = tsp.n - iend -1;
+    if (jend > 0 && jend == jstart+1) {
+        int tmp = jend;
+        jend = jstart;
+        jstart = tmp;
         rev = 1;
-        DBG("reversed ids: istart: %d, iend: %d", istart, iend);
-#ifdef DEBUG
-        for (i=0; i<tsp.n; i++) {
-            DBG("i: %d, ids[i]: %d, io[i]: %d, jo[i]: %d",
-                i, ids[i], tsp.iorder[i], tsp.jorder[i]);
-        }
-#endif
+        DBG("reversed start and end: jstart: %d, jend: %d", jstart, jend);
     }
 
     // copy ids to tsp.jorder so we can rewrite ids
     memcpy(tsp.jorder, ids, tsp.n * sizeof(int));
 
     // write reordered ids into ids[]
-    for (i=istart, j=0; i < tsp.n; i++, j++)
+    // remember at this point jorder is our list if ids
+    for (i=jstart, j=0; i < tsp.n; i++, j++)
         ids[j] = tsp.jorder[tsp.iorder[i]];
 
-    for (i=0; i < istart; i++, j++)
+    for (i=0; i < jstart; i++, j++)
         ids[j] =tsp.jorder[tsp.iorder[i]];
 
-    // if we reversed the order above so put it correct now.
-    if (rev)
+    // if we reversed the order above, now put it correct.
+    if (rev) {
+        int tmp = jend;
+        jend = jstart;
+        jstart = tmp;
         reverse(tsp.n, ids);
+    }
 
 #ifdef DEBUG
     DBG("ids getting returned!");
@@ -562,7 +566,7 @@ int find_tsp_solution(int num, DTYPE *cost, int *ids, int start, int end, DTYPE 
     }
 #endif
 
-    DBG("tsplib: istart=%d, iend=%d, n=%d, j=%d", istart, iend, tsp.n, j);
+    DBG("tsplib: jstart=%d, jend=%d, n=%d, j=%d", jstart, jend, tsp.n, j);
 
     return 0;
 }

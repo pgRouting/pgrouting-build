@@ -71,10 +71,9 @@ BEGIN
      * the follow simply fetches the first geometry and gets
      * the srid from that.
     */
-    EXECUTE 'SELECT ST_SRID(' || quote_ident(geo_cname) || ') as srid, '
-        || 'CASE WHEN ST_GEOMETRYN(' || quote_ident(geo_cname)
-        || ', 1) IS NULL THEN true ELSE false END AS ismulti FROM '
-        || pgr_quote_ident(geom_table) || ' WHERE ' || quote_ident(geo_cname)
+    EXECUTE 'SELECT ST_SRID(' || quote_ident(geo_cname) || ') as srid '
+        || ' FROM ' || pgr_quote_ident(geom_table)
+        || ' WHERE ' || quote_ident(geo_cname)
         || ' IS NOT NULL LIMIT 1'
         INTO tabinfo;
 
@@ -83,11 +82,7 @@ BEGIN
     END IF;
 
     srid := tabinfo.srid;
-    if tabinfo.ismulti THEN
-        cname := 'ST_GEOMETRYN('|| quote_ident(geo_cname) || ',1)';
-    ELSE
-        cname := quote_ident(geo_cname);
-    END IF;
+    cname := quote_ident(geo_cname);
 
     -- get the approximate count of records for geom_table
     
@@ -105,8 +100,8 @@ BEGIN
 
     rowcount := 0;
     FOR points IN EXECUTE 'SELECT ' || quote_ident(gid_cname) || ' AS id,'
-        || ' ST_StartPoint(' || cname || ') AS source,'
-        || ' ST_EndPoint('   || cname || ') AS target'
+        || ' PGR_StartPoint(' || cname || ') AS source,'
+        || ' PGR_EndPoint('   || cname || ') AS target'
         || ' FROM '  || pgr_quote_ident(geom_table)
         || ' WHERE ' || quote_ident(geo_cname) || ' IS NOT NULL '
     LOOP
