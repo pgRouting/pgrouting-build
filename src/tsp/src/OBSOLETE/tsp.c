@@ -25,6 +25,9 @@
 #include "executor/spi.h"
 #include "funcapi.h"
 #include "catalog/pg_type.h"
+#if PGSQL_VERSION > 92
+#include "access/htup_details.h"
+#endif
 
 #include "string.h"
 #include "math.h"
@@ -213,7 +216,7 @@ static int solve_tsp(char* sql, char* p_ids,
   int *ids;
 
   point_t *points=NULL;
-  point_columns_t point_columns = {id: -1, x: -1, y:-1};
+  point_columns_t point_columns = {.id= -1, .x= -1, .y=-1};
 
   char *err_msg = NULL;
   int ret = -1;
@@ -237,6 +240,11 @@ static int solve_tsp(char* sql, char* p_ids,
     if (p_ids[i] == ',') MAX_TOWNS++;
 
   DBG("MAX_TOWNS=%d", MAX_TOWNS);
+
+  if (MAX_TOWNS < 4) {
+    elog(ERROR, "Error: TSP requires 4 or more locations. Only %d were supplied.", MAX_TOWNS);
+    return -1;
+  }
 
   *path = (path_element_t *) palloc( MAX_TOWNS * sizeof(path_element_t) );
   if (! *path) {
