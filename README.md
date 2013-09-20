@@ -2,6 +2,14 @@
 
 ## STATUS
 
+The *master* branch reflects our current 2.0.0 release. iPost 2.0.0 development will happen in the *develop* branch. The 2.0 release is not backwards compatible with the 1.x releases because we have totally restructured the API and the source code to position the product for additional future growth. Once you see all the new functionality that we have added and the simplier API design we thing you will be very happy with the results.
+
+## LINKS
+
+* http://pgrouting.org/ 
+* http://docs.pgrouting.org/dev/doc/index.html
+* https://github.com/pgRouting/pgrouting
+
 <table>
 	<tr>
 		<td>Branch</td>
@@ -44,7 +52,7 @@ This library contains following features:
 * Turn Restriction Shortest Path (TRSP)
 
 
-## REQUIREMENT
+## REQUIREMENTS
 
 * C and C++ compilers
 * Postgresql version >= 8.4 (9.1 or higher recommended)
@@ -56,7 +64,7 @@ This library contains following features:
 
 ## INSTALLATION
 
-See online documentation: http://docs.pgrouting.org/dev/doc/src/installation/index.html
+See online documentation: http://docs.pgrouting.org/
 
 ## COMPILATION
 

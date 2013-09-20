@@ -112,13 +112,15 @@ Examples
 			7, 12, false, false
 		);
 
-	 seq | node | edge | cost 
-	-----+------+------+------
-	   0 |    7 |    8 |    1
-	   1 |    8 |   11 |    1
-	   2 |   11 |   13 |    1
-	   3 |   12 |   -1 |    0
-	(4 rows)
+	seq | node | edge | cost 
+	----+------+------+------
+	  0 |    7 |    6 |    1
+	  1 |    8 |    7 |    1
+	  2 |    5 |    8 |    1
+	  3 |    6 |   11 |    1
+	  4 |   11 |   13 |    1
+	  5 |   12 |   -1 |    0
+	(6 rows)
 
 
 * With turn restrictions
@@ -152,15 +154,15 @@ Then a query with turn restrictions is created as:
                FROM restrictions'
 		);
 
-     seq | node | edge | cost
-     -----+------+------+------
-        0 |    7 |    8 |    1
-        1 |    8 |   11 |    1
-        2 |   11 |   13 |    1
-        3 |   12 |   -1 |    0
-     (4 rows)
-
-
+	 seq | node | edge | cost 
+	-----+------+------+------
+	   0 |    7 |    6 |    1
+	   1 |    8 |    7 |    1
+	   2 |    5 |    8 |    1
+	   3 |    6 |   11 |    1
+	   4 |   11 |   13 |    1
+	   5 |   12 |   -1 |    0
+	(6 rows)
 
 The queries use the :ref:`sampledata` network.
 
@@ -169,4 +171,3 @@ See Also
 -------------------------------------------------------------------------------
 
 * :ref:`type_cost_result`
-

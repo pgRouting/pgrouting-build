@@ -33,6 +33,10 @@ PG_MODULE_MAGIC;
 #define DBG(format, arg...) do { ; } while (0)
 #endif
 
+#ifndef INFINITY
+#define INFINITY (1.0/0.0)
+#endif
+
 // The number of tuples to fetch from the SPI cursor at each iteration
 #define TUPLIMIT 1000
 
@@ -170,7 +174,7 @@ static int solve_tsp(DTYPE *matrix, int num, int start, int end, int **results)
 
     DBG("Alloc ids");
 
-    ids = (int *) palloc(num * sizeof(int));
+    ids = (int *) malloc(num * sizeof(int));
     if (!ids) {
         elog(ERROR, "Error: Out of memory (solve_tsp)");
     }
@@ -305,8 +309,10 @@ tsp_matrix(PG_FUNCTION_ARGS)
         SRF_RETURN_NEXT(funcctx, result);
     }
     else {   /* do when there is no more left */
-        DBG("Ending function");
+        DBG("Freeing tsp_res");
+        free(tsp_res);
 
+        DBG("Ending function");
         SRF_RETURN_DONE(funcctx);
     }
 }

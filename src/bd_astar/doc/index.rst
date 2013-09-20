@@ -85,16 +85,17 @@ Examples
     SELECT seq, id1 AS node, id2 AS edge, cost 
         FROM pgr_bdAstar(
             'SELECT id, source, target, cost, x1, y1, x2, y2 FROM edge_table',
-            7, 12, false, false
+            4, 10, false, false
         );
 
      seq | node | edge | cost 
     -----+------+------+------
-       0 |    7 |    8 |    1
-       1 |    8 |    9 |    1
-       2 |    9 |   15 |    1
-       3 |   12 |   -1 |    0
-    (4 rows)
+       0 |    4 |    3 |    0
+       1 |    3 |    5 |    1
+       2 |    6 |   11 |    1
+       3 |   11 |   12 |    0
+       4 |   10 |   -1 |    0
+    (5 rows)
 
 
 * With ``reverse_cost``
@@ -104,16 +105,17 @@ Examples
     SELECT seq, id1 AS node, id2 AS edge, cost 
         FROM pgr_bdAstar(
             'SELECT id, source, target, cost, x1, y1, x2, y2, reverse_cost FROM edge_table',
-            7, 12, true, true
+            4, 10, true, true
         );
 
      seq | node | edge | cost 
     -----+------+------+------
-       0 |    7 |    8 |    1
-       1 |    8 |    9 |    1
-       2 |    9 |   15 |    1
-       3 |   12 |   -1 |    0
-    (4 rows)
+       0 |    4 |    3 |    1
+       1 |    3 |    5 |    1
+       2 |    6 |    8 |    1
+       3 |    5 |   10 |    1
+       4 |   10 |   -1 |    0
+    (5 rows)
 
 The queries use the :ref:`sampledata` network.
 
