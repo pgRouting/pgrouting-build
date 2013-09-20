@@ -13,5 +13,5 @@ include /usr/share/cdbs/1/class/cmake.mk
 
 # Build CMake flags
 # ------------------------------------------------------------------------------
-DEB_CMAKE_EXTRA_FLAGS = -DWITH_DD=ON -DWITH_DOC=ON
+DEB_CMAKE_EXTRA_FLAGS = -DWITH_DD=ON -DWITH_DOC=ON -DBUILD_LATEX=ON
 #DEB_CMAKE_NORMAL_ARGS
