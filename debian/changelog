@@ -1,3 +1,10 @@
+pgrouting (2.0.0-release-ppa1~trusty1) trusty; urgency=medium
+
+  [ Daniel Kastl (Georepublic) ]
+  * builds for trusty (PostgreSQL dependencies updated to 9.3 and PostGIS to 2.1)
+
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Thu, 23 April 2014 21:34:14 +0900
+
 pgrouting (2.0.0-release-ppa1~saucy3) saucy; urgency=medium
 
   [ Daniel Kastl (Georepublic) ]
