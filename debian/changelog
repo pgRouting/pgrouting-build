@@ -1,8 +1,9 @@
-pgrouting (2.0.0-release-ppa1~utopic1) utopic; urgency=medium
+pgrouting (2.0.0-release-ppa1~utopic3) utopic; urgency=medium
 
   * Build for utopic
+  * PostgreSQL 9.4 and PostGIS 2.1
 
- -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Fri, 24 Oct 2014 02:35:40 +0900
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Fri, 24 Oct 2014 02:51:24 +0900
 
 pgrouting (2.0.0-release-ppa1~saucy3) saucy; urgency=medium
 
