@@ -1,3 +1,10 @@
+pgrouting (2.1.0-ppa1~wily2) wily; urgency=medium
+
+  * Updated config file for GBP to new syntax
+  * Imported Upstream version 2.1.0
+
+ -- Daniel Kastl (Georepublic) <daniel@georepublic.de>  Wed, 02 Dec 2015 04:06:23 +0900
+
 pgrouting (2.0.0-release-ppa1~utopic3) utopic; urgency=medium
 
   * Build for utopic
