@@ -4,16 +4,17 @@
 
 ## STATUS
 
-### Current Development is in the *develop* branch
+### Branches
 
-The *master* branch reflects our current 2.1.0 release.
-Post 2.1.0 development will happen in the *develop* branch.
+The *master* branch reflects the current 2.2.3 release.
+The *develop* branch reflects the 2.3.0-dev
+
 
 
 ## LINKS
 
 * http://pgrouting.org/ 
-* http://docs.pgrouting.org/dev/doc/index.html
+* http://docs.pgrouting.org/
 * https://github.com/pgRouting/pgrouting
 
 <table>
@@ -25,18 +26,13 @@ Post 2.1.0 development will happen in the *develop* branch.
 	<tr>
 		<td>master</td>
 		<td><img src="https://travis-ci.org/pgRouting/pgrouting.png?branch=master" alt="Build Status"/></td>
-		<td>not enabled</td>
 	</tr>
 	<tr>
 		<td>develop</td>
 		<td><img src="https://travis-ci.org/pgRouting/pgrouting.png?branch=develop" alt="Build Status"/></td>
 		<td></td>
 	</tr>
-        <tr>
-                <td>develop_2_1_0</td>
-                <td><img src="https://travis-ci.org/pgRouting/pgrouting.png?branch=develop_2_1_0" alt="Build Status"/></td>
-                <td></td>
-        </tr>
+
 	<tr>
 		<td>gh-pages</td>
 		<td><img src="https://travis-ci.org/pgRouting/pgrouting.png?branch=gh-pages" alt="Build Status"/></td>
@@ -55,12 +51,27 @@ This library contains following features:
 * Shortest Path A*
 * Bi-directional Dijkstra Shortest Path
 * Bi-directional A* Shortest Path
-* Shortest Path Dijkstra
+* Shortest Path Dijkstra Family of functions
+* Shortest Path Dijkstra Cost Family of functions
 * Driving Distance
-* K-Shortest Path, Multiple Alternative Paths
-* K-Dijkstra, One to Many Shortest Path
+* K-Shortest Path, Multiple Alternative Paths (Yen's algorithm)
 * Traveling Sales Person
 * Turn Restriction Shortest Path (TRSP)
+
+Additionaly, ready for testing and to be part of 2.3 official version:
+
+* Shortest Path Dijkstra With Points Family of functions
+* Shortest Path Dijkstra Cost With Points Family of functions
+* Driving Distance With Points
+* K-Shortest Path With Points, Multiple Alternative Paths (Yen's algorithm)
+* Dijkstra Via vertices
+
+Family of functions include:
+
+* one to one
+* one to many
+* many to one
+* many to many
 
 
 ## REQUIREMENTS
@@ -69,8 +80,7 @@ This library contains following features:
 * Postgresql version >= 9.1
 * PostGIS version >= 2.0
 * The Boost Graph Library (BGL).
-  * Version >= 1.55 for linux
-  * Version >= 1.58 for MAC
+  * Version >= 1.46
 * CMake >= 2.8.8
 * CGAL >= 4.4
 * Sphinx >= 1.2
@@ -106,12 +116,12 @@ Build with documentation (requires [Sphinx](http://sphinx-doc.org/))
 Postgresql 9.1+
 
 	createdb mydatabase
-	psql mydatabase -c "create extension postgis"
-	psql mydatabase -c "create extension pgrouting"
+	psql mydatabase -c "CREATE EXTENSION postgis"
+	psql mydatabase -c "CREATE EXTENSION pgrouting"
 
 ## USAGE
 
-See online documentation: http://docs.pgrouting.org/dev/doc/index.html
+See online documentation: http://docs.pgrouting.org/2.2/en/doc/index.html
 
 
 ## LICENSE
