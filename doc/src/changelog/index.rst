@@ -12,6 +12,10 @@
 Release Notes
 ===============================================================================
 
+   - :ref:`changelog_2_2_3`
+   - :ref:`changelog_2_2_2`
+   - :ref:`changelog_2_2_1`
+   - :ref:`changelog_2_2_0`  
    - :ref:`changelog_2_1_0`  
    - :ref:`changelog_2_0`  
    - :ref:`changelog_1_x`  
@@ -19,7 +23,11 @@ Release Notes
 .. toctree::
    :hidden: 
 
-   pgRouting 2.1 develop Notes <2_1_0>
-   pgRouting 2.0 Release Notes <2_0>
-   pgRouting 1.x Release Notes <1_x>
+   2_2_3
+   2_2_2
+   2_2_1
+   2_2_0
+   2_1_0
+   2_0
+   1_x
 

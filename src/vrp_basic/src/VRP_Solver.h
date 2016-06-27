@@ -1,7 +1,9 @@
-/*PGR
+/*PGR-GNU*****************************************************************
 
 Copyright (c) 2013 Khondoker Md. Razequl Islam
 ziboncsedu@gmail.com
+
+------
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,22 +19,15 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-*/
+********************************************************************PGR-GNU*/
 
 #ifndef VRPSOLVER_H
 #define VRPSOLVER_H
 
 #include <vector>
 #include <map>
-#include <queue>
+#include <utility>
 #include <string>
-#include <stdlib.h>
-#include <iostream>
-#include <algorithm>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
-#include <set>
 
 #define MAXIMUM_TRY 15
 #define TOTAL_NUMBER_OF_SEARCH 15
@@ -193,7 +188,7 @@ public:
 	int getEndDepot(){return m_iEndDepotId;}
 	void setEndDepot(int depotId){m_iEndDepotId = depotId;}
 
-	int getServedOrderCount(){return m_viOrderIds.size();}
+	size_t getServedOrderCount(){return m_viOrderIds.size();}
 
 	void updateCost(double cost, double distance, double travelTime);
 
@@ -256,10 +251,10 @@ public:
 	bool addTour(CTourInfo& tour);
 	CTourInfo& getTour(int pos){return m_vtourAll[pos];}
 
-	int getTourCount(){return (m_vtourAll.size());}
+	size_t getTourCount(){return (m_vtourAll.size());}
 
-	int getUnservedOrderCount(){return m_vUnservedOrderId.size();}
-	int getUnusedVehicleCount(){return m_vUnusedVehicles.size();}
+	size_t getUnservedOrderCount(){return m_vUnservedOrderId.size();}
+	size_t getUnusedVehicleCount(){return m_vUnusedVehicles.size();}
 
 	int getUnusedVehicleAt(int pos){return m_vUnusedVehicles[pos];}
 
@@ -310,7 +305,7 @@ public:
 	void setModifiedTour(CTourInfo pTourData1, CTourInfo pTourData2);
 
 	bool getModifiedTourAt(int index, CTourInfo& tourInfo);
-	int getModifiedTourCount() const { return m_vModifiedTour.size();}
+	size_t getModifiedTourCount() const { return m_vModifiedTour.size();}
 	double getModifiedTourCost() const;
 	void getInitialTour(CTourInfo &TourData);
 	void getInitialTour(CTourInfo &TourData1, CTourInfo &TourData2);
